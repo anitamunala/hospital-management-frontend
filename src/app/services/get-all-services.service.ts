@@ -15,7 +15,7 @@ export class GetAllServicesService {
   ) { }
 
   fetchAllServices():Observable<any>{
-    return this.http.get(environment.allServices, {headers: this.httpHeaders} ).pipe(
+    return this.http.get(`${environment.baseUrl}${environment.allServices}`, {headers: this.httpHeaders} ).pipe(
 shareReplay()
     )
   }
