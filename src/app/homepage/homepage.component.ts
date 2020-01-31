@@ -15,7 +15,7 @@ import { environment } from '../../environments/environment';
 })
 export class HomepageComponent implements OnInit {
   allNavBarItems = [];
-  allServices: [];
+  allServices = [];
   batchedServices = [];
   allDoctors: [];
   mediaBaseURL: string = `${environment.mediaBaseUrl}`;
@@ -38,7 +38,6 @@ export class HomepageComponent implements OnInit {
   getAllNavBarItems() {
     this.getAllNavBarItemsService.fetchAllNavbarItems().subscribe(
       (res) => {
-        console.log(res);
         switch (res['status']) {
           case 200:
             this.allNavBarItems = res['all_navbar_items'];
@@ -50,24 +49,30 @@ export class HomepageComponent implements OnInit {
 
   getAllServices() {
     this.getAllServicesService.fetchAllServices().subscribe(
-      servicesData => {
-        this.allServices = servicesData;
-        // console.log(servicesData);
-        let numberOfRows = 2;
-        let numberOfItemsInEachRow = parseInt((this.allServices.length / numberOfRows).toFixed());
-        for (var i = 0; i < 2; i++) {
-          if (this.allServices.length >= numberOfItemsInEachRow) {
-            this.batchedServices.push(this.allServices.splice(0, numberOfItemsInEachRow))
-          }
-          if (this.allServices.length < 3 && this.allServices.length > 0) {
-            this.batchedServices.push(this.allServices);
-            this.allServices = [];
-          }
-
+      (res) => {
+        console.log(res);
+        switch(res['status']){
+          case 200:
+              this.allServices = res['all_services'];
+              // console.log(servicesData);
+              let numberOfRows = 2;
+              let numberOfItemsInEachRow = parseInt((this.allServices.length / numberOfRows).toFixed());
+              for (var i = 0; i < 2; i++) {
+                if (this.allServices.length >= numberOfItemsInEachRow) {
+                  this.batchedServices.push(this.allServices.splice(0, numberOfItemsInEachRow))
+                }
+                if (this.allServices.length < 3 && this.allServices.length > 0) {
+                  this.batchedServices.push(this.allServices);
+                  this.allServices = [];
+                }
+      
+              }
+            break;
         }
+        
 
         // console.log(this.batchedServices)
-      }
+      }, (err) => {console.log(err);}
     )
   }
 
