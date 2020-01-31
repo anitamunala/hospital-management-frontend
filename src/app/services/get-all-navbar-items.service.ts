@@ -16,7 +16,7 @@ export class GetAllNavbarItemsService {
   ) { }
 
   fetchAllNavbarItems():Observable<any>{
-    return this.http.get(environment.allNavBarItems, {headers:this.httpHeaders}).pipe(
+    return this.http.get(`${environment.baseUrl}${environment.allNavBarItems}`, {headers:this.httpHeaders}).pipe(
       shareReplay()
 
     );
