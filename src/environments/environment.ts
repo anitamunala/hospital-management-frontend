@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  allNavBarItems: "http://127.0.0.1:8000/api/all/navbar-items/",
+  allServices: "http://127.0.0.1:8000/api/services/",
+  allDoctors: "http://127.0.0.1:8000/all-doctors/",
+  mediaBaseUrl: "http://127.0.0.1:8000/media/",
 };
 
 /*
